@@ -14,32 +14,27 @@ class Gcg(QMainWindow):
         self.setWindowTitle("Genius Invokation TCG")
         self.main_widget = QWidget(self)
         self.main_widget.setStyleSheet("border-image: url(./resources/background/background.png)")
-        QFontDatabase.addApplicationFont("./resources/genshin.ttf")  # 'HYWenHei-85W'
+        QFontDatabase.addApplicationFont("./resources/genshin.ttf")
         menu = self.menuBar()
         menu.setStyleSheet("font-family: 'HYWenHei-85W'; font-size: 10pt; color: black;")
-        game_menu = menu.addMenu("游戏")
-        start_game = QAction("开始游戏", self)
+        game_menu = menu.addMenu("Game")
+        start_game = QAction("Start Game", self)
         game_menu.addAction(start_game)
         start_game.triggered.connect(self.start_game)
-        # self.choose_mode = QMenu("选择模式", self)
-        # game_menu.addMenu(self.choose_mode)
-        # mode1 = QAction("Game1", self)
-        # mode1.setCheckable(True)
-        # self.choose_mode.addAction(mode1)
-        self.choose_deck = QMenu("选择牌组", self)
+        self.choose_deck = QMenu("Choose Deck", self)
         game_menu.addMenu(self.choose_deck)
         self.player_chose_deck = None
         self.all_deck = QActionGroup(self)
         self.all_deck.triggered.connect(self.on_deck_chosen)
         self.init_choose()
-        exit_game = QAction("退出", self)
+        exit_game = QAction("Exit", self)
         game_menu.addAction(exit_game)
-        edit_menu = menu.addMenu("编辑")
-        edit_deck = QAction("编辑牌组", self)
+        edit_menu = menu.addMenu("Edit")
+        edit_deck = QAction("Edit Deck", self)
         edit_menu.addAction(edit_deck)
-        edit_card = QAction("编辑卡牌", self)
+        edit_card = QAction("Edit Card", self)
         edit_menu.addAction(edit_card)
-        edit_background = QAction("编辑背景", self)
+        edit_background = QAction("Edit Background", self)
         edit_menu.addAction(edit_background)
         self.diceNum = QLabel(self)
         self.diceNum.setObjectName("diceNum")
@@ -48,21 +43,19 @@ class Gcg(QMainWindow):
         self.diceNum.hide()
         self.oppoDiceNum = QLabel(self)
         self.oppoDiceNum.setObjectName("oppose_dice_num")
-        self.oppoDiceNum.setStyleSheet(
-            "#oppose_dice_num{border-image: url(./resources/images/oppo-dice-icon.png);color: white}")
+        self.oppoDiceNum.setStyleSheet("#oppose_dice_num{border-image: url(./resources/images/oppo-dice-icon.png);color: white}")
         self.oppoDiceNum.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.oppoDiceNum.hide()
         self.oppoCardNum = QLabel(self)
         self.oppoCardNum.setObjectName("oppo_card_num")
-        self.oppoCardNum.setStyleSheet(
-            "#oppo_card_num{border-image: url(./resources/images/card-num-icon.png);color: white}")
+        self.oppoCardNum.setStyleSheet("#oppo_card_num{border-image: url(./resources/images/card-num-icon.png);color: white}")
         self.oppoCardNum.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.oppoCardNum.hide()
         self.card_zone = CardZone(self)
         self.skill_zone = SkillZone(self)
         self.summonZone = SummonZone(self)
         self.supportZone = SupportZone(self)
-        self.oppoSupportZone =SupportZone(self)
+        self.oppoSupportZone = SupportZone(self)
         self.oppoSummonZone = SummonZone(self)
         self.dice_zone = DiceZone(self)
         self.character_zone = CharacterZone(self, "player")
@@ -570,16 +563,16 @@ class CommitButton(QPushButton):
 
     def update_text(self):
         if self.game.choose_target_type:
-            self.setText("确定")
+            self.setText("Confirm")
         else:
             if self.game.action_state == "play_card":
-                self.setText("打出卡牌")
+                self.setText("Play Card")
             elif self.game.action_state == "element_tuning":
-                self.setText("元素调和")
+                self.setText("Element Tuning")
             elif self.game.action_state == "use_skill":
-                self.setText("使用技能")
+                self.setText("Use Skill")
             else:
-                self.setText("确定")
+                self.setText("Confirm")
 
     def showEvent(self, event) -> None:
         self.update_text()
